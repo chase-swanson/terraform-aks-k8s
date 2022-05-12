@@ -22,7 +22,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
   network_profile {
     network_plugin = "kubenet"
-    # network_policy = "calico"
+    network_policy = "calico"
   }
 
   default_node_pool {
