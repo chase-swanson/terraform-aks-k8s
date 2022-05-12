@@ -34,3 +34,11 @@ module "aks" {
 module "k8s" {
   source = "./modules/kubernetes"
 }
+
+# module "app_gateway" {
+#   source      = "./modules/gateway"
+#   environment = var.environment
+#   location    = var.location
+#   tags        = var.tags
+# }
+

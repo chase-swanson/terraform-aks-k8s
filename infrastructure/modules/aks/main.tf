@@ -14,6 +14,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   tags                = var.tags
   dns_prefix          = "cs-k8s-${var.environment}"
   kubernetes_version  = "1.23.5"
+  node_resource_group = "cs-k8s-node-rg-${var.environment}"
   # private_cluster_enabled   = true
   open_service_mesh_enabled = true
   azure_active_directory_role_based_access_control {
@@ -23,7 +24,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
   network_profile {
     network_plugin = "kubenet"
-    network_policy = "calico"
+    # network_policy = "calico"
   }
 
   default_node_pool {
