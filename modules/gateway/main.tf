@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "app-gateway-${var.environment}"
+  name     = "cs-app-gateway-${var.environment}"
   location = var.location
 }
 
 resource "azurerm_public_ip" "public_ip" {
-  name                = "app-gateway-pub-ip-${var.environment}"
+  name                = "cs-app-gateway-pub-ip-${var.environment}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   allocation_method   = "Static"
@@ -12,13 +12,13 @@ resource "azurerm_public_ip" "public_ip" {
 }
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = "app-gateway-ngs-${var.environment}"
+  name                = "cs-app-gateway-ngs-${var.environment}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "app-gateway-vnet-${var.environment}"
+  name                = "cs-app-gateway-vnet-${var.environment}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   address_space       = ["10.0.0.0/16"]
@@ -63,7 +63,7 @@ locals {
 }
 
 resource "azurerm_application_gateway" "app_gateway" {
-  name                = "appgateway-${var.environment}"
+  name                = "cs-appgateway-${var.environment}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
 

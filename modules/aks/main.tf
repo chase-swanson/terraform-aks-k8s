@@ -1,6 +1,4 @@
-data "azuread_group" "owners" {
-  display_name = "DBKI Owners"
-}
+
 resource "azurerm_resource_group" "rg" {
   name     = "cs-k8s-rg-${var.environment}"
   location = var.location
@@ -51,8 +49,3 @@ resource "azurerm_role_assignment" "acr_role" {
   skip_service_principal_aad_check = true
 }
 
-resource "azurerm_role_assignment" "cluster_admins" {
-  principal_id         = data.azuread_group.owners.id
-  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
-  scope                = azurerm_kubernetes_cluster.k8s.id
-}
