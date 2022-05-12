@@ -31,9 +31,9 @@ module "aks" {
   log_analytics_workspace_id = module.monitoring.workspace_id
 }
 
-module "k8s" {
-  source = "./modules/kubernetes"
-}
+# module "k8s" {
+#   source = "./modules/kubernetes"
+# }
 
 # module "app_gateway" {
 #   source      = "./modules/gateway"

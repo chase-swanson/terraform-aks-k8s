@@ -49,3 +49,8 @@ resource "azurerm_role_assignment" "acr_role" {
   skip_service_principal_aad_check = true
 }
 
+resource "azurerm_role_assignment" "cluster_admins" {
+  principal_id         = "fa48efab-4ce2-4c75-bf1d-542a4355b427"
+  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
+  scope                = azurerm_kubernetes_cluster.k8s.id
+}

@@ -1,4 +1,4 @@
-resource "kubernetes_namespace_v1" "dbki_ns" {
+resource "kubernetes_namespace_v1" "test_ns" {
   metadata {
     name = "sandbox"
   }
