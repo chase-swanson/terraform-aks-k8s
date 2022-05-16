@@ -5,6 +5,27 @@ resource "azurerm_resource_group" "rg" {
   tags     = var.tags
 }
 
+resource "azurerm_public_ip" "example" {
+  name                = "example-pip"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  allocation_method   = "Static"
+}
+
+resource "azurerm_virtual_network" "vnet" {
+  name                = "example-network"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  address_space       = ["10.1.0.0/16"]
+}
+
+resource "azurerm_subnet" "internal" {
+  name                 = "internal"
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  resource_group_name  = azurerm_resource_group.rg.name
+  address_prefixes     = ["10.1.0.0/22"]
+}
+
 resource "azurerm_kubernetes_cluster" "k8s" {
   name                = "cs-k8s-${var.environment}"
   location            = azurerm_resource_group.rg.location
@@ -26,11 +47,12 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 
   default_node_pool {
-    name                = "default"
-    vm_size             = "standard_d4s_v5"
+    name                = "system"
+    vm_size             = "standard_d2s_v5"
     enable_auto_scaling = true
     min_count           = 1
     max_count           = 5
+    vnet_subnet_id      = azurerm_subnet.internal.id
   }
 
   identity {
@@ -40,6 +62,10 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   oms_agent {
     log_analytics_workspace_id = var.log_analytics_workspace_id
   }
+
+  # microsoft_defender {
+  #   log_analytics_workspace_id = var.log_analytics_workspace_id
+  # }
 }
 
 resource "azurerm_role_assignment" "acr_role" {
