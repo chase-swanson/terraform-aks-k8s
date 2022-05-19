@@ -18,15 +18,15 @@ variable "location" {
   default     = "West US2"
 }
 
-variable "log_analytics_workspace_id" {
-  type        = string
-  description = "ID of Log Analytics workspace to attach the cluster"
-}
+# variable "log_analytics_workspace_id" {
+#   type        = string
+#   description = "ID of Log Analytics workspace to attach the cluster"
+# }
 
-variable "docker_registry_id" {
-  type        = string
-  description = "ID of container registry to pull Docker images"
-}
+# variable "docker_registry_id" {
+#   type        = string
+#   description = "ID of container registry to pull Docker images"
+# }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
