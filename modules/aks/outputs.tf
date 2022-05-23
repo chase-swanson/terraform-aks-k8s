@@ -17,3 +17,7 @@ output "host" {
 output "kube_config_raw" {
   value = azurerm_kubernetes_cluster.k8s.kube_admin_config_raw
 }
+
+output "current_subscription_id" {
+  value = data.azurerm_subscription.current.id
+}
