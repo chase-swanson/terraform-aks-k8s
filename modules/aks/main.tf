@@ -55,9 +55,10 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   kubernetes_version        = "1.23.5"
   node_resource_group       = "cs-k8s-node-rg-${var.environment}"
   automatic_channel_upgrade = "patch"
-  # azure_policy_enabled = "true"
+  azure_policy_enabled      = "true"
+  open_service_mesh_enabled = true
+
   # private_cluster_enabled   = true
-  # open_service_mesh_enabled = true
 
   azure_active_directory_role_based_access_control {
     managed            = true
@@ -82,13 +83,10 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     type = "SystemAssigned"
   }
 
-  # oms_agent {
-  #   log_analytics_workspace_id = var.log_analytics_workspace_id
-  # }
+  oms_agent {
+    log_analytics_workspace_id = var.log_analytics_workspace_id
+  }
 
-  # microsoft_defender {
-  #   log_analytics_workspace_id = var.log_analytics_workspace_id
-  # }
   ingress_application_gateway {
     gateway_name = "app-gateway-${var.environment}"
     subnet_id    = data.azurerm_subnet.gw_subnet.id
