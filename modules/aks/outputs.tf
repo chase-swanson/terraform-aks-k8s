@@ -18,6 +18,26 @@ output "kube_config_raw" {
   value = azurerm_kubernetes_cluster.k8s.kube_admin_config_raw
 }
 
-output "current_subscription_id" {
-  value = data.azurerm_subscription.current.id
+output "cluster_name" {
+  value = azurerm_kubernetes_cluster.k8s.name
+}
+
+output "system_subnet_id" {
+  value = data.azurerm_subnet.sys_subnet.id
+}
+
+output "user_subnet_id" {
+  value = data.azurerm_subnet.usr_subnet.id
+}
+
+output "gateway_subnet_id" {
+  value = data.azurerm_subnet.gw_subnet.id
+}
+
+output "resource_group_name" {
+  value = azurerm_resource_group.rg.name
+}
+
+output "node_resource_group_name" {
+  value = azurerm_kubernetes_cluster.k8s.node_resource_group
 }

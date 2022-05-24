@@ -109,7 +109,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "user" {
 }
 
 
-
 resource "azurerm_role_assignment" "cluster_admins" {
   principal_id         = "fa48efab-4ce2-4c75-bf1d-542a4355b427"
   role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"

@@ -21,6 +21,13 @@ module "aks" {
 module "aks_network" {
   source = "./modules/aks-networking"
 
+  system_subnet_id         = module.aks.system_subnet_id
+  user_subnet_id           = module.aks.user_subnet_id
+  gateway_subnet_id        = module.aks.gateway_subnet_id
+  resource_group_name      = module.aks.resource_group_name
+  node_resource_group_name = module.aks.node_resource_group_name
+  k8s_cluster_name         = module.aks.cluster_name
+
   depends_on = [
     module.aks
   ]
